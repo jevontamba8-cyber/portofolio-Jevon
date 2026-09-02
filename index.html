@@ -254,13 +254,19 @@
         <h2 class="section-title">Proyek <span>Hasil Karya</span></h2>
       </div>
 
+      <div class="project-filter-wrapper">
+        <button class="filter-btn active" data-filter="all">Semua Proyek</button>
+        <button class="filter-btn" data-filter="web">Web Development</button>
+        <button class="filter-btn" data-filter="network">Network & NOC</button>
+      </div>
+
       <div class="projects-grid">
         <!-- Project 1: Skripsi AI E-Commerce -->
-        <div class="project-card">
+        <div class="project-card" data-category="web">
           <div class="project-img-wrapper">
             <img src="./assets/project1.jpg" alt="Platform E-Commerce dengan Implementasi AI" class="project-img">
             <div class="project-overlay">
-              <a href="#" class="icon-btn" title="Detail Proyek"><i class="fa-solid fa-circle-info"></i></a>
+              <a href="#contact" class="icon-btn" title="Tanyakan Detail Proyek Skripsi"><i class="fa-solid fa-circle-info"></i></a>
             </div>
           </div>
           <div class="project-body">
@@ -281,7 +287,7 @@
         </div>
 
         <!-- Project 2: Sistem Penilaian Nilai Siswa -->
-        <div class="project-card">
+        <div class="project-card" data-category="web">
           <div class="project-img-wrapper">
             <img src="./assets/project2.jpg" alt="Sistem Penilaian Nilai Siswa" class="project-img">
             <div class="project-overlay">
@@ -306,11 +312,11 @@
         </div>
 
         <!-- Project 3: Monitoring & Troubleshooting NOC -->
-        <div class="project-card">
+        <div class="project-card" data-category="network">
           <div class="project-img-wrapper">
             <img src="./assets/project3.jpg" alt="Network Operation Center Monitoring" class="project-img">
             <div class="project-overlay">
-              <a href="#" class="icon-btn" title="Detail Proyek"><i class="fa-solid fa-circle-info"></i></a>
+              <a href="#contact" class="icon-btn" title="Tanyakan Pengalaman NOC"><i class="fa-solid fa-circle-info"></i></a>
             </div>
           </div>
           <div class="project-body">
@@ -592,7 +598,7 @@
               <div class="method-icon"><i class="fa-solid fa-envelope"></i></div>
               <div class="method-details">
                 <h5>Email</h5>
-                <p>jevontamba8@gmail.com</p>
+                <p>jevontamba8@gmail.com <button type="button" class="copy-btn" onclick="copyToClipboard('jevontamba8@gmail.com', 'Email')" title="Salin Email"><i class="fa-regular fa-copy"></i></button></p>
               </div>
             </div>
 
@@ -600,7 +606,7 @@
               <div class="method-icon"><i class="fa-brands fa-whatsapp"></i></div>
               <div class="method-details">
                 <h5>No. Telepon / WhatsApp</h5>
-                <p>081285324814</p>
+                <p>081285324814 <button type="button" class="copy-btn" onclick="copyToClipboard('081285324814', 'Nomor WhatsApp')" title="Salin No. WhatsApp"><i class="fa-regular fa-copy"></i></button></p>
               </div>
             </div>
 

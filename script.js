@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Contact Form Handler
+  // 5. Contact Form Handler (Direct WhatsApp Redirect)
   const contactForm = document.getElementById('contactForm');
   const toastMsg = document.getElementById('toastMsg');
 
@@ -98,26 +98,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
 
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+      const name = document.getElementById('name')?.value.trim() || '';
+      const email = document.getElementById('email')?.value.trim() || '';
+      const subject = document.getElementById('subject')?.value.trim() || '';
+      const message = document.getElementById('message')?.value.trim() || '';
 
-      // Simulate network request
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyiapkan Pesan...';
+
       setTimeout(() => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
 
         if (toastMsg) {
           toastMsg.className = 'toast-msg success';
-          toastMsg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Thank you! Your message has been sent successfully. Jevon will respond soon!';
+          toastMsg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Pesan disiapkan! Membuka chat WhatsApp Jevon...';
           toastMsg.style.display = 'block';
-
-          contactForm.reset();
 
           setTimeout(() => {
             toastMsg.style.display = 'none';
-          }, 5000);
+          }, 4000);
         }
-      }, 1200);
+
+        // Redirect to WhatsApp with formatted text
+        const waText = `Halo Jevon,%0A%0ANama: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0ASubjek: ${encodeURIComponent(subject)}%0A%0APesan:%0A${encodeURIComponent(message)}`;
+        window.open(`https://wa.me/6281285324814?text=${waText}`, '_blank');
+        contactForm.reset();
+      }, 800);
     });
   }
 
@@ -132,3 +139,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Helper Function for 1-Click Copy to Clipboard
+function copyToClipboard(text, label) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(`${label} (${text}) berhasil disalin!`);
+    }).catch(() => {
+      fallbackCopyTextToClipboard(text, label);
+    });
+  } else {
+    fallbackCopyTextToClipboard(text, label);
+  }
+}
+
+function fallbackCopyTextToClipboard(text, label) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.select();
+  try {
+    document.execCommand('copy');
+    showToast(`${label} (${text}) berhasil disalin!`);
+  } catch (err) {
+    console.error('Copy failed', err);
+  }
+  document.body.removeChild(textArea);
+}
+
+function showToast(msg) {
+  const toastMsg = document.getElementById('toastMsg');
+  if (toastMsg) {
+    toastMsg.className = 'toast-msg success';
+    toastMsg.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${msg}`;
+    toastMsg.style.display = 'block';
+    setTimeout(() => {
+      toastMsg.style.display = 'none';
+    }, 4000);
+  } else {
+    alert(msg);
+  }
+}
